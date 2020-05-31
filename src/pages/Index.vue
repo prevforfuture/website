@@ -1,25 +1,36 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="row">
-      <q-table
-        title="Convênios"
-        :data="data"
-        :columns="columns"
-        row-key="id"
-        :pagination.sync="pagination"
-        :loading="loading"
-        :filter="filter"
-        @request="onRequest"
-        binary-state-sort
-      >
-        <template v-slot:top-right>
-          <q-input borderless dense debounce="300" v-model="filter" placeholder="Pesquisar">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </template>
-      </q-table>
+  <q-page>
+    <div class="row q-pt-lg q-pl-sm q-pr-sm">
+      <div>
+        <q-form
+          ref="form"
+          @submit="onSubmit"
+          @reset="onReset"
+          class="q-gutter-md"
+        >
+        </q-form>
+      </div>
+      <div class="col-5">
+        <q-table
+          title="Convênios"
+          :data="data"
+          :columns="columns"
+          row-key="id"
+          :pagination.sync="pagination"
+          :loading="loading"
+          :filter="filter"
+          @request="onRequest"
+          binary-state-sort
+        >
+          <template v-slot:top-right>
+            <q-input borderless dense debounce="300" v-model="filter" placeholder="Pesquisar">
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
+        </q-table>
+      </div>
     </div>
   </q-page>
 </template>
@@ -106,6 +117,23 @@ export default {
           carbs: 65
         }
       ]
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.$refs.myForm.validate().then(success => {
+        if (success) {
+          // yay, models are correct
+        } else {
+          // oh no, user has filled in
+          // at least one invalid value
+        }
+      })
+    },
+    onReset () {
+      this.name = null
+      this.age = null
+      this.accept = false
     }
   }
 }
