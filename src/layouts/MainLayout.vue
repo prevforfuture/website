@@ -14,6 +14,23 @@
         <q-toolbar-title>
           PrevFourFuture
         </q-toolbar-title>
+        <q-space />
+        <q-btn-dropdown flat color="primary" text-color="white" :label="`Funcesp`" dense>
+          <!-- <q-item v-close-popup @click="changePassword">
+            <q-item-section>
+              <q-item-label>CNPJ: 62.465.117/0001-06</q-item-label>
+            </q-item-section>
+          </q-item> -->
+          <q-separator/>
+          <q-item clickable v-close-popup @click="logout">
+            <q-item-section avatar>
+              <q-avatar icon="exit_to_app" size="md"/>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Sair</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 

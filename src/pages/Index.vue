@@ -2,7 +2,7 @@
   <q-page>
     <div class="row q-pt-lg q-pl-sm q-pr-sm">
       <div class="col-6">
-        <div class="row q-ma-md">
+        <div class="row q-ma-xs">
           <q-form
             ref="form"
             @submit="onSubmit"
