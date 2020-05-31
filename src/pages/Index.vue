@@ -1,25 +1,41 @@
 <template>
   <q-page>
     <div class="row q-pt-lg q-pl-sm q-pr-sm">
-      <div>
-        <q-form
-          ref="form"
-          @submit="onSubmit"
-          @reset="onReset"
-          class="q-gutter-md"
-        >
-        </q-form>
+      <div class="col-6">
+        <div class="row q-ma-md">
+          <q-form
+            ref="form"
+            @submit="onSubmit"
+            @reset="onReset"
+            class="q-pa-md col-8 shadow-10"
+          >
+            <div class="text-center">
+              <span class="text-h6"> Cadastrar Convênio </span>
+            </div>
+            <q-input v-model="data_convenio.none" label="Nome da empresa*" :rules="[ val => val && val.length > 0 || 'Campo obrigatório!']" />
+            <q-input v-model="data_convenio.contribuicao" label="Contribuição mínima*" :rules="[ val => val && val.length > 0 || 'Campo obrigatório!']" type="number"/>
+            <q-select v-model="data_convenio.empresa" :options="options" label="Empresas" />
+            <q-select v-model="data_convenio.tipo_investidor" :options="tipos_investidor" label="Tipo de investidor" />
+            <div class="q-mt-md" style="margin-left: -10px">
+              <q-checkbox v-model="data_convenio.parentesco" label="Aceita plano familia?" />
+            </div>
+            <q-select v-if="data_convenio.parentesco" v-model="data_convenio.grau_parentesco" :options="tipos_parentesco" label="Tipo parentesco" />
+            <div class="col-12 q-mt-md">
+              <div class="row justify-between">
+                <q-btn label="Cadastrar" type="submit" color="primary"/>
+                <q-btn outline label="Limpar formulário" type="reset" color="secondary" flat class="q-ml-sm" />
+              </div>
+            </div>
+          </q-form>
+        </div>
       </div>
-      <div class="col-5">
+      <div class="col-6">
         <q-table
           title="Convênios"
           :data="data"
           :columns="columns"
           row-key="id"
-          :pagination.sync="pagination"
-          :loading="loading"
           :filter="filter"
-          @request="onRequest"
           binary-state-sort
         >
           <template v-slot:top-right>
@@ -40,7 +56,17 @@ export default {
   name: 'PageConvenios',
   data () {
     return {
+      data_convenio: {},
       filter: '',
+      options: [
+        'Ambev',
+        'Petrobras'
+      ],
+      tipos_investidor: [
+        'Conservador',
+        'Arrojado'
+      ],
+      tipos_parentesco: ['Pai', 'Mãe', 'Filho(a)', 'Neto(a)', 'Avô', 'Avó'],
       columns: [
         {
           name: 'desc',
