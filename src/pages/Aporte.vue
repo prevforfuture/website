@@ -1,25 +1,50 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="row">
-      <q-table
-        title="Convênios"
-        :data="data"
-        :columns="columns"
-        row-key="id"
-        :pagination.sync="pagination"
-        :loading="loading"
-        :filter="filter"
-        @request="onRequest"
-        binary-state-sort
-      >
-        <template v-slot:top-right>
-          <q-input borderless dense debounce="300" v-model="filter" placeholder="Pesquisar">
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-          </q-input>
-        </template>
-      </q-table>
+  <q-page>
+    <div class="row q-pt-lg q-pl-sm q-pr-sm">
+      <div class="col-md-6">
+        <div class="row q-ma-xs">
+          <div class="col-md-8 col-xs-12">
+            <q-form
+              ref="form"
+              @submit="onSubmit"
+              @reset="onReset"
+              class="q-pa-md shadow-10"
+            >
+              <div class="text-center">
+                <span class="text-h6"> Cadastrar Aporte </span>
+              </div>
+              <q-input v-model="data_aporte.none" label="Nome da empresa*" :rules="[ val => val && val.length > 0 || 'Campo obrigatório!']" />
+              <q-input v-model="data_aporte.contribuicao" label="Contribuição mínima*" :rules="[ val => val && val.length > 0 || 'Campo obrigatório!']" type="number"/>
+              <q-input v-model="data_aporte.data" label="Data*" stack-label type="date" :rules="[ val => val && val.length > 0 || 'Campo obrigatório!']"/>
+              <q-select v-model="data_aporte.empresa" :options="options" label="Empresas" />
+              <div class="col-12 q-mt-md">
+                <div class="row justify-between">
+                  <q-btn label="Cadastrar" type="submit" color="primary"/>
+                  <q-btn outline label="Limpar formulário" type="reset" color="secondary" flat class="q-ml-sm" />
+                </div>
+              </div>
+            </q-form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <q-table
+          title="Aportes"
+          :data="data"
+          :columns="columns"
+          row-key="id"
+          :filter="filter"
+          binary-state-sort
+        >
+          <template v-slot:top-right>
+            <q-input borderless dense debounce="300" v-model="filter" placeholder="Pesquisar">
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </template>
+        </q-table>
+      </div>
     </div>
   </q-page>
 </template>
@@ -30,6 +55,11 @@ export default {
   data () {
     return {
       filter: '',
+      data_aporte: {},
+      options: [
+        'Ambev',
+        'Petrobras'
+      ],
       columns: [
         {
           name: 'desc',
@@ -62,50 +92,23 @@ export default {
           calories: 262,
           fat: 16.0,
           carbs: 23
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65
         }
       ]
+    }
+  },
+  methods: {
+    onSubmit () {
+      this.$refs.myForm.validate().then(success => {
+        if (success) {
+          // yay, models are correct
+        } else {
+          // oh no, user has filled in
+          // at least one invalid value
+        }
+      })
+    },
+    onReset () {
+      this.data_convenio = {}
     }
   }
 }

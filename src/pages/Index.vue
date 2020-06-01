@@ -1,13 +1,13 @@
 <template>
   <q-page>
     <div class="row q-pt-lg q-pl-sm q-pr-sm">
-      <div class="col-6">
+      <div class="col-md-6">
         <div class="row q-ma-xs">
           <q-form
             ref="form"
             @submit="onSubmit"
             @reset="onReset"
-            class="q-pa-md col-8 shadow-10"
+            class="q-pa-md col-md-8 shadow-10"
           >
             <div class="text-center">
               <span class="text-h6"> Cadastrar Convênio </span>
@@ -29,7 +29,7 @@
           </q-form>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <q-table
           title="Convênios"
           :data="data"
@@ -99,48 +99,6 @@ export default {
           calories: 262,
           fat: 16.0,
           carbs: 23
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65
         }
       ]
     }
@@ -157,9 +115,7 @@ export default {
       })
     },
     onReset () {
-      this.name = null
-      this.age = null
-      this.accept = false
+      this.data_convenio = {}
     }
   }
 }
